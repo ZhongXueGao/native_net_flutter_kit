@@ -16,10 +16,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final _plugin = NativeNetFlutterKit();
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  var _result = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +25,24 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('NativeNetPlugin'),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              child: Text('Get请求'),
-              onPressed: () {
-                _plugin.get('http:wwww.baidu.com', params: {});
-              },
-            ),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ElevatedButton(
+                child: const Text('Get请求'),
+                onPressed: () async {
+                  var result =
+                      await _plugin.get('http:wwww.baidu.com/', params: {});
+                  setState(() {
+                    _result = result.toString();
+                  });
+                },
+              ),
+              Text('get result:\n\n $_result'),
+            ],
+          ),
         ),
       ),
     );

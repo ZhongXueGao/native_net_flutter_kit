@@ -14,11 +14,11 @@ class MethodChannelNativeNetFlutterKit extends NativeNetFlutterKitPlatform {
     String url, {
     Map<String, dynamic>? params,
   }) async {
-    final result = await methodChannel.invokeMethod<Map<String, dynamic>>(
+    final result = await methodChannel.invokeMethod<Map>(
       'get',
-      [url, params],
+      {'url': url, 'params': params},
     );
-    return {};
+    return _convertResult(result);
   }
 
   @override
@@ -26,11 +26,11 @@ class MethodChannelNativeNetFlutterKit extends NativeNetFlutterKitPlatform {
     String url, {
     Map<String, dynamic>? params,
   }) async {
-    final result = await methodChannel.invokeMethod<Map<String, dynamic>>(
+    final result = await methodChannel.invokeMethod<Map>(
       'post',
-      [url, params],
+      {'url': url, 'params': params},
     );
-    return {};
+    return _convertResult(result);
   }
 
   @override
@@ -38,11 +38,11 @@ class MethodChannelNativeNetFlutterKit extends NativeNetFlutterKitPlatform {
     String url, {
     Map<String, dynamic>? params,
   }) async {
-    final result = await methodChannel.invokeMethod<Map<String, dynamic>>(
+    final result = await methodChannel.invokeMethod<Map>(
       'postJson',
-      [url, params],
+      {'url': url, 'params': params},
     );
-    return {};
+    return _convertResult(result);
   }
 
   @override
@@ -50,11 +50,11 @@ class MethodChannelNativeNetFlutterKit extends NativeNetFlutterKitPlatform {
     String url, {
     Map<String, dynamic>? params,
   }) async {
-    final result = await methodChannel.invokeMethod<Map<String, dynamic>>(
+    final result = await methodChannel.invokeMethod<Map>(
       'del',
-      [url, params],
+      {'url': url, 'params': params},
     );
-    return {};
+    return _convertResult(result);
   }
 
   @override
@@ -62,10 +62,17 @@ class MethodChannelNativeNetFlutterKit extends NativeNetFlutterKitPlatform {
     String url, {
     Map<String, dynamic>? params,
   }) async {
-    final result = await methodChannel.invokeMethod<Map<String, dynamic>>(
+    final result = await methodChannel.invokeMethod<Map>(
       'put',
-      [url, params],
+      {'url': url, 'params': params},
     );
-    return {};
+    return _convertResult(result);
+  }
+
+  Map<String, dynamic> _convertResult(Map? result) {
+    if (result != null) {
+      return result.map((key, value) => MapEntry(key.toString(), value));
+    }
+    return <String, dynamic>{};
   }
 }
